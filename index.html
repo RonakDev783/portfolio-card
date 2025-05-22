@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            background-color: #e8e8e8;
+        }
+
+    
+        .parent {
+            width: 290px;
+            height: 450px;
+            perspective: 1000px;
+        }
+
+        .card {
+            height: 100%;
+            border-radius: 50px;
+            background: linear-gradient(135deg, rgb(0, 255, 214) 0%, rgb(8, 226, 96) 100%);
+            transition: all 0.5s ease-in-out;
+            transform-style: preserve-3d;
+            box-shadow: rgba(5, 71, 17, 0) 40px 50px 25px -40px, rgba(5, 71, 17, 0.2) 0px 25px 25px -5px;
+        }
+
+        .glass {
+            transform-style: preserve-3d;
+            position: absolute;
+            inset: 8px;
+            border-radius: 55px;
+            border-top-right-radius: 100%;
+            background: linear-gradient(0deg, rgba(255, 255, 255, 0.349) 0%, rgba(255, 255, 255, 0.815) 100%);
+            /* -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px); */
+            transform: translate3d(0px, 0px, 25px);
+            border-left: 1px solid white;
+            border-bottom: 1px solid white;
+            transition: all 0.5s ease-in-out;
+        }
+
+        .content {
+            padding: 100px 60px 0px 30px;
+            transform: translate3d(0, 0, 26px);
+        }
+
+        .content .title {
+            display: block;
+            color: #00894d;
+            font-weight: 900;
+            font-size: 20px;
+        }
+
+        .content .text {
+            display: block;
+            color: rgba(0, 137, 78, 0.7647058824);
+            font-size: 15px;
+            margin-top: 20px;
+        }
+
+        .bottom {
+            padding: 10px 12px;
+            transform-style: preserve-3d;
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transform: translate3d(0, 0, 26px);
+        }
+
+        .bottom .view-more {
+            display: flex;
+            align-items: center;
+            width: 40%;
+            justify-content: flex-end;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .bottom .view-more:hover {
+            transform: translate3d(0, 0, 10px);
+        }
+
+        .bottom .view-more .view-more-button {
+            background: none;
+            border: none;
+            color: #00c37b;
+            font-weight: bolder;
+            font-size: 12px;
+        }
+
+        .bottom .view-more .svg {
+            fill: none;
+            stroke: #00c37b;
+            stroke-width: 3px;
+            max-height: 15px;
+        }
+
+        .bottom .social-buttons-container {
+            display: flex;
+            gap: 10px;
+            transform-style: preserve-3d;
+        }
+
+        .bottom .social-buttons-container .social-button {
+            width: 30px;
+            aspect-ratio: 1;
+            padding: 5px;
+            background: rgb(255, 255, 255);
+            border-radius: 50%;
+            border: none;
+            display: grid;
+            place-content: center;
+            box-shadow: rgba(5, 71, 17, 0.5) 0px 7px 5px -5px;
+        }
+
+        .bottom .social-buttons-container .social-button:first-child {
+            transition: transform 0.2s ease-in-out 0.4s, box-shadow 0.2s ease-in-out 0.4s;
+        }
+
+        .bottom .social-buttons-container .social-button:nth-child(2) {
+            transition: transform 0.2s ease-in-out 0.6s, box-shadow 0.2s ease-in-out 0.6s;
+        }
+
+        .bottom .social-buttons-container .social-button:nth-child(3) {
+            transition: transform 0.2s ease-in-out 0.8s, box-shadow 0.2s ease-in-out 0.8s;
+        }
+
+        .bottom .social-buttons-container .social-button .svg {
+            width: 15px;
+            fill: #00894d;
+        }
+
+        .bottom .social-buttons-container .social-button:hover {
+            background: black;
+        }
+
+        .bottom .social-buttons-container .social-button:hover .svg {
+            fill: white;
+        }
+
+        .bottom .social-buttons-container .social-button:active {
+            background: rgb(255, 234, 0);
+        }
+
+        .bottom .social-buttons-container .social-button:active .svg {
+            fill: black;
+        }
+
+        .logo {
+            position: absolute;
+            right: 0;
+            top: 0;
+            transform-style: preserve-3d;
+        }
+
+        .logo .circle {
+            display: block;
+            position: absolute;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            top: 0;
+            right: 0;
+            box-shadow: rgba(100, 100, 111, 0.2) -10px 10px 20px 0px;
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+            background: rgba(0, 249, 203, 0.2);
+            transition: all 0.5s ease-in-out;
+        }
+
+        .logo .circle1 {
+            width: 170px;
+            transform: translate3d(0, 0, 20px);
+            top: 8px;
+            right: 8px;
+        }
+
+        .logo .circle2 {
+            width: 140px;
+            transform: translate3d(0, 0, 40px);
+            top: 10px;
+            right: 10px;
+            -webkit-backdrop-filter: blur(1px);
+            backdrop-filter: blur(1px);
+            transition-delay: 0.4s;
+        }
+
+        .logo .circle3 {
+            width: 110px;
+            transform: translate3d(0, 0, 60px);
+            top: 17px;
+            right: 17px;
+            transition-delay: 0.8s;
+        }
+
+        .logo .circle4 {
+            width: 80px;
+            transform: translate3d(0, 0, 80px);
+            top: 23px;
+            right: 23px;
+            transition-delay: 1.2s;
+        }
+
+        .logo .circle5 {
+            width: 50px;
+            transform: translate3d(0, 0, 100px);
+            top: 30px;
+            right: 30px;
+            display: grid;
+            place-content: center;
+            transition-delay: 1.6s;
+        }
+
+        .logo .circle5 .svg {
+            width: 20px;
+            fill: white;
+        }
+
+        .parent:hover .card {
+            transform: rotate3d(1, 1, 0, 30deg);
+            box-shadow: rgba(5, 71, 17, 0.3) 30px 50px 25px -40px, rgba(5, 71, 17, 0.1) 0px 25px 30px 0px;
+        }
+
+        .parent:hover .card .bottom .social-buttons-container .social-button {
+            transform: translate3d(0, 0, 50px);
+            box-shadow: rgba(5, 71, 17, 0.2) -5px 20px 10px 0px;
+        }
+
+        .parent:hover .card .logo .circle2 {
+            transform: translate3d(0, 0, 60px);
+        }
+
+        .parent:hover .card .logo .circle3 {
+            transform: translate3d(0, 0, 80px);
+        }
+
+        .parent:hover .card .logo .circle4 {
+            transform: translate3d(0, 0, 100px);
+        }
+
+        .parent:hover .card .logo .circle5 {
+            transform: translate3d(0, 0, 120px);
+        }
+
+        .profile-img {
+            width: 75px;
+            height: 75px;
+            margin-top: -75px;
+            object-fit: cover;
+            border-radius: 100%;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+        }
+
+        .profile-img1 {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid white;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+        }
+
+
+.portFolio {
+  align-items: center;
+  background-color: transparent;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  font-family: ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  font-size: 0.5rem;
+  font-weight: 700;
+  line-height: 1.5;
+  text-decoration: none;
+  text-transform: uppercase;
+  outline: 0;
+  border: 0;
+  padding: 1rem;
+}
+
+.portFolio:before {
+  background-color: white;
+  content: "";
+  display: inline-block;
+  height: 1px;
+  margin-right: 10px;
+  transition: all .42s cubic-bezier(.25,.8,.25,1);
+  width: 0;
+}
+
+.portFolio:hover:before {
+  background-color: white;
+  width: 3rem;
+}
+    </style>
+</head>
+
+<body>
+    <div class="parent">
+        <div class="card">
+            <div class="logo">
+                <span class="circle circle1"></span>
+                <span class="circle circle2"></span>
+                <span class="circle circle3"></span>
+                <span class="circle circle4"></span>
+                <span class="circle circle5">
+                    <!-- <p class="logo-text">RS</p> -->
+
+                    <img src="img/WhatsApp Image 2025-05-01 at 14.26.59_4359927e.png"
+                        alt="Profile" class="profile-img1" />
+
+                </span>
+
+            </div>
+            <div class="glass"></div>
+            <div class="content">
+                <img src="img/WhatsApp Image 2025-04-21 at 16.14.22_0771ae02.jpg"
+                    alt="Profile" class="profile-img" />
+                    <button class="portFolio">
+                        Portfolio Website
+                    </button>
+                <span class="title">RONAK SHARMA</span>
+                <span class="text">𝚆𝙴𝙱 𝙳𝙴𝚅𝙴𝙻𝙾𝙿𝙴𝚁 | 🎓 ʙᴄᴀ ꜱᴛᴜᴅᴇɴᴛ
+                    🖥️ ʜᴛᴍʟ • ᴄꜱꜱ • ᴊꜱ • ᴛᴀɪʟᴡɪɴᴅ | 📱 ʀᴇꜱᴘᴏɴꜱɪᴠᴇ ᴅᴇꜱɪɢɴᴇʀ</span>
+                <span class="text">"Frontend developer crafting responsive, user-friendly websites with modern
+                    tech."</span>
+                    
+                    
+            </div>
+            <div class="bottom">
+
+                <div class="social-buttons-container">
+                    <button class="social-button .social-button1">
+                        <svg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" class="svg">
+                            <a href="https://www.instagram.com/_sharmaboy2004?igsh=dndzczJqc3E0c2ds">
+                                <path
+                                    d="M 9.9980469 3 C 6.1390469 3 3 6.1419531 3 10.001953 L 3 20.001953 C 3 23.860953 6.1419531 27 10.001953 27 L 20.001953 27 C 23.860953 27 27 23.858047 27 19.998047 L 27 9.9980469 C 27 6.1390469 23.858047 3 19.998047 3 L 9.9980469 3 z M 22 7 C 22.552 7 23 7.448 23 8 C 23 8.552 22.552 9 22 9 C 21.448 9 21 8.552 21 8 C 21 7.448 21.448 7 22 7 z M 15 9 C 18.309 9 21 11.691 21 15 C 21 18.309 18.309 21 15 21 C 11.691 21 9 18.309 9 15 C 9 11.691 11.691 9 15 9 z M 15 11 A 4 4 0 0 0 11 15 A 4 4 0 0 0 15 19 A 4 4 0 0 0 19 15 A 4 4 0 0 0 15 11 z">
+                                </path>
+                            </a>
+                        </svg></button>
+                    <button class="social-button .social-button2">
+                        <!-- LinkedIn Icon -->
+                        <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" class="svg">
+                            <a
+                                href="https://www.linkedin.com/in/ronak-sharma-02935833a?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app">
+                                <path
+                                    d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.6 0 53.5A53.5 53.5 0 01107 53.5c0 30.1-24.09 54.6-53.21 54.6zM447.9 448h-92.68V302.4c0-34.7-12.5-58.4-43.6-58.4-23.8 0-38 16-44.3 31.4-2.3 5.6-2.8 13.4-2.8 21.3V448h-92.78s1.2-260.4 0-287.1h92.78v40.7c-.2.3-.4.7-.5 1h.5v-1c12.3-18.9 34.3-45.9 83.6-45.9 61 0 106.9 39.8 106.9 125.2z" >
+                                </path> </a></svg>
+                    </button>
+                </div>
+        
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
